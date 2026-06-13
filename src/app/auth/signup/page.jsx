@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Card, Form, TextField, Label, Input, Button } from "@heroui/react";
 // Assuming your better-auth client instance is exported here
 import { authClient } from "@/lib/auth-client";
+import { Description, Radio, RadioGroup } from "@heroui/react";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("seeker");
 
   // Feedback UI state
   const [isLoading, setIsLoading] = useState(false);
@@ -21,8 +23,6 @@ export default function SignupPage() {
   const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e) => {
-    // HeroUI v3 handles native validation if configured,
-    // but prevent default to route through JavaScript for AJAX submission
     e.preventDefault();
     setIsLoading(true);
     setError("");
@@ -33,6 +33,7 @@ export default function SignupPage() {
         email,
         password,
         name,
+        role,
       });
 
       if (authError) {
@@ -118,6 +119,37 @@ export default function SignupPage() {
               className="w-full rounded-xl border border-border bg-surface px-4 py-2 text-sm shadow-sm focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 transition-all"
             />
           </TextField>
+
+          {/* Role Selection */}
+          <div className="flex flex-col gap-4">
+            <Label>Subscription plan</Label>
+            <RadioGroup
+              defaultValue="seeker"
+              name="role"
+              orientation="horizontal"
+              onChange={(value) => setRole(value)}
+            >
+              {/* Job seeker */}
+              <Radio value="seeker">
+                <Radio.Control>
+                  <Radio.Indicator />
+                </Radio.Control>
+                <Radio.Content>
+                  <Label>Job Seeker</Label>
+                </Radio.Content>
+              </Radio>
+
+              {/* Recruiter */}
+              <Radio value="recruiter">
+                <Radio.Control>
+                  <Radio.Indicator />
+                </Radio.Control>
+                <Radio.Content>
+                  <Label>Recruiter</Label>
+                </Radio.Content>
+              </Radio>
+            </RadioGroup>
+          </div>
 
           <Button
             type="submit"

@@ -10,7 +10,7 @@ export default function Navbar() {
 
   // Session data
   const { data: session, isPending } = useSession();
-  // console.log("Session data from Navbar:", session, "is pending:", isPending);
+  console.log("Session data from Navbar:", session, "is pending:", isPending);
 
   const user = session?.user;
 
