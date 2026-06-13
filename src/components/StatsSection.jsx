@@ -7,6 +7,7 @@ import { Card } from "@heroui/react";
 // import { Briefcase, ChartColumn, Users, Star } from "@gravity-ui/icons-react";
 // import { Briefcase, ChartColumn, Users, Star } from "@gravity-ui/icons-react";
 import { FaBriefcase, FaChartBar, FaUsers, FaStar } from "react-icons/fa";
+import { motion } from "motion/react";
 
 const stats = [
   {
@@ -59,6 +60,9 @@ export default function StatsSection() {
           <p className="mt-4 text-gray-300 text-xl">
             Find your dream positions.
           </p>
+          <motion.p animate={{ rotate: 360 }} transition={{ duration: 1 }}>
+            Remote Jobs
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
