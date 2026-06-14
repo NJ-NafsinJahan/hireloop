@@ -13,6 +13,7 @@ import {
   Button,
   FieldError,
   Switch,
+  toast,
 } from "@heroui/react";
 import {
   ArrowLeft,
@@ -21,6 +22,7 @@ import {
   Calendar,
   Briefcase,
 } from "@gravity-ui/icons";
+import { createJob } from "@/lib/actions/jobs";
 
 export default function PostJobPage() {
   const router = useRouter();
@@ -74,11 +76,22 @@ export default function PostJobPage() {
     };
 
     try {
+      setIsLoading(true);
+      setError("");
+      setSuccess("");
+
+      // get API call
+      const res = await createJob(jobData);
+
       console.log("Submitting Job Data:", jobData);
+
+      if (res.insertedId) {
+        toast.success("Job Posted Successfully");
+      }
       setSuccess("Job posted successfully! Making it publicly visible...");
 
       setTimeout(() => {
-        router.push("/dashboard/recruiter/jobs");
+        router.push("/dashboard/recruiter");
       }, 2000);
     } catch (err) {
       setError("Failed to post the job. Please try again.");
