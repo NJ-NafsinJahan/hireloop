@@ -26,7 +26,9 @@ import {
   Select,
   ListBox,
   Button,
+  toast,
 } from "@heroui/react";
+import { createCompany } from "@/lib/actions/companies";
 
 export default function CompanyDashboard() {
   // State to simulate database record state: 'not_registered', 'viewing', 'editing'
@@ -88,14 +90,19 @@ export default function CompanyDashboard() {
 
     console.log("Submitted Company Data:", formValues);
 
+    // API call for Post company data from action>companies.js
+    const payload = await createCompany(formValues);
+
+    if (payload.insertedId) {
+      alert("company profile created successfully");
+    }
+
     // Simulate API Network latency
     setTimeout(() => {
       setCompanyData({ ...formValues });
       setViewState("viewing");
       setIsSubmitting(false);
     }, 1200);
-
-    // console.log("Company profile data:", companyData);
   };
 
   // Status Badge UI Renderer using Gravity Icons
