@@ -23,6 +23,7 @@ import {
   Briefcase,
 } from "@gravity-ui/icons";
 import { createJob } from "@/lib/actions/jobs";
+// import { Toast, toast } from "@heroui/react";
 
 export default function PostJobPage() {
   const router = useRouter();
@@ -89,9 +90,9 @@ export default function PostJobPage() {
         toast.success("Job Posted Successfully");
       }
       setSuccess("Job posted successfully! Making it publicly visible...");
-
+      //   toast.success("Job posted successfully!");
       setTimeout(() => {
-        router.push("/dashboard/recruiter");
+        router.push("/dashboard/recruiter/jobs");
       }, 2000);
     } catch (err) {
       setError("Failed to post the job. Please try again.");
